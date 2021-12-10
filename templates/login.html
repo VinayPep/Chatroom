@@ -1,36 +1,73 @@
 <!DOCTYPE html>
 <html>
-  <head>
+
+<head>
     <title>Sign-In</title>
     <link rel="stylesheet" href="{{ url_for('static', filename = 'login.css') }}">
     <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700" rel="stylesheet">
     <style>
-      
+        body {
+            background-color: #ABBAEA;
+        }
+        
+        .headtxt {
+            height: 80px;
+            margin: 20px;
+            border: 5px solid;
+            background-color: #FBD603;
+        }
+        
+        .in {
+            color: #fff;
+            text-transform: uppercase;
+            text-decoration: none;
+            background: #60a3bc;
+            padding: 20px;
+            border-radius: 50px;
+            display: inline-block;
+            border: none;
+            font-weight: 1000;
+            color: black;
+            transition: all 0.4s ease 0s;
+        }
+        
+        .in:hover {
+            text-shadow: 0px 0px 6px rgba(255, 255, 255, 1);
+            -webkit-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+            -moz-box-shadow: 0px 5px 40px -10px rgba(0, 0, 0, 0.57);
+            transition: all 0.4s ease 0s;
+            background-color: #4CAF50;
+            color: white;
+        }
     </style>
-  </head>
-  <body>
-    <form action="/welcome" method ="POST">
-      <h1>Please Login to Meet New People out there :) </h1>
+</head>
 
-      <div class="formcontainer">
-      <hr/>
-      <div class="container">
+<body>
+    <form action="/welcome" method="POST">
+        <div class="headtxt">
+            <h1>Please Login to Meet New People out there :) </h1>
+        </div>
+        <div class="formcontainer">
+            <hr/>
+            <div class="container">
 
-        <label for="uname"><strong>Username</strong></label>
-        <input type="text" placeholder="Enter Username" name="uname" required>
+                <label for="uname"><strong>Username</strong></label>
+                <input type="text" placeholder="Enter Username" name="uname" required>
 
-        <label for="psw"><strong>Password</strong></label>
-        <input type="password" placeholder="Enter Password" name="psw" required>
+                <label for="psw"><strong>Password</strong></label>
+                <input type="password" placeholder="Enter Password" name="psw" required>
 
-      </div>
+            </div>
 
-      <button type="submit">Login</button>
+            <button class="in" type="submit">Login</button>
 
-      <div class="container" style="background-color: #eee">
-        <label style="padding-left: 15px">
+            <div class="container" style="background-color: #ABBAEA">
+                <label style="padding-left: 15px">
         <input type="checkbox"  checked="checked" name="remember"> Remember me
-        </label>
-      </div>
+      
+      </label>
+            </div>
     </form>
-  </body>
+</body>
+
 </html>
