@@ -4,21 +4,51 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"
+    integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj"
+    crossorigin="anonymous"></script>
+
+    
     <title>Welcome to Personal Chat Box!!</title>
 
   </head>
   <body>
       <h1> Welcome to our PERSONAL  CHATROOM {{data}}</h1>
       
+      <script type="text/javascript">
+        const socket = io('/personal');
+        socket.on('connect', () => {
+          console.log('CONNECTED TO SERVER WITH sid: ' + socket.id + " BY USER: {{ data }}");
+          // have a event to join room separate from event to send messages
+          
+          socket.on('recieve_private_message_req', (data) => {
+                console.log(data);
+            });
 
-        <form action="/room" method ='POST'>
+          socket.on('recieve_private_message', (data) => {
+                
+            console.log(data);
+            });
+          });
+
+        socket.on('disconnect', () => {
+            console.log('SOCKET DISCONNECTED');
+        });
+      </script>
+
+<!-- first connect using first command in console and then for sending messages use second command
+# socket.emit('send_private_message_req', {"username":"{{ data }}", "socket_id":"FW72lNwnhAnuWH90AAAD"})
+# socket.emit('send_private_message', {"from_username":"", "message":"", "to_username":"", "socket_id":"FW72lNwnhAnuWH90AAAD"}) -->
+
+<!--       <form action="/room" method ='POST'>
             
               <input type="text" placeholder="Enter Username" name="search" required>
               <input type = "submit">
               <button><a href = "signin">Logout</button>
-          </form>
+        </form>
 
-          <p>{{invalid}}</p>
+          <p>{{invalid}}</p> -->
 	
   </body>
 </html>
