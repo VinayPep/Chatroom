@@ -5,7 +5,7 @@ from flask.templating import render_template
 from models import *
 from models import Userdata
 import hashlib
-from flask_socketio import SocketIO, send
+from flask_socketio import SocketIO, send, emit, join_room, leave_room
 g_name = ""
 socketio = SocketIO(app, cors_allowed_origins='*')
 
@@ -108,6 +108,61 @@ def handleMessage(msg):
     # print(request.sid)
 	send(msg, broadcast=True)
     
+@socketio.on("send_private_message_req", namespace='/personal')
+def private_message_req(data):
+    """
+    data format
+    {
+        username: "" # client who is sending
+        socket_id: "" # another client where it wants to connect
+    }
+    """
+    print("-"*10)
+    print("pm", data)
+    print("-"*10)
+    username = data['username']
+    room = data['socket_id']
+    join_room(room)
+    emit('recieve_private_message_req', username + ' has entered the room.', to=room)
+# socket.emit('send_private_message_req', {"username":"{{ data }}", "socket_id":"FW72lNwnhAnuWH90AAAD"})
+
+@socketio.on("send_private_message", namespace='/personal')
+def private_message(data):
+    """
+    data format
+    {
+        from_username:""
+        message:""
+        to_username:""
+        socket_id:""
+    }
+    """
+    print("-"*10)
+    print("pm", data)
+    print("-"*10)
+    msg_data = {
+        "from_username": data['from_username'],
+        "from_socket_id" :request.sid,
+        "msg": data["message"],
+        "to_username":data['to_username'],
+        "to_socket_id":data['socket_id'],
+    }
+    room = data['socket_id']
+    emit('recieve_private_message', msg_data, to=room)
+# socket.emit('send_private_message', {"from_username":"", "message":"", "to_username":"", "socket_id":"FW72lNwnhAnuWH90AAAD"})
+
+
+@socketio.on('connect')
+def connect():
+    print("-"*10)
+    print(f"SOCKET {request.sid} CONNECTED")
+    print("-"*10)
+
+@socketio.on('disconnect')
+def disconnect():
+    print("-"*10)
+    print(f"SOCKET {request.sid} DISCONNECTED")
+    print("-"*10)
 
 if __name__ == "__main__":
     socketio.run(app)
