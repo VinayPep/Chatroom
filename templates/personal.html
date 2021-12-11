@@ -4,21 +4,102 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <script src="https://cdn.socket.io/4.4.0/socket.io.min.js"
+    integrity="sha384-1fOn6VtTq3PWwfsOrk45LnYcGosJwzMHv+Xh/Jx5303FVOXzEnw0EpLv30mtjmlj"
+    crossorigin="anonymous"></script>
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+
+    
     <title>Welcome to Personal Chat Box!!</title>
 
   </head>
   <body>
       <h1> Welcome to our PERSONAL  CHATROOM {{data}}</h1>
+      <p id="is-connected"></p>
+      <button id="join-chat-btn">connect</button>
       
+      <script type="text/javascript">
+        const curr_user = "{{ data }}";
+        const socket = io('/personal');
 
-        <form action="/room" method ='POST'>
+        socket.on('connect', () => {
+          console.log('CONNECTED TO SERVER WITH sid: ' + socket.id + " BY USER: {{ data }}");
+          $('#is-connected').text("{{ data }} online.")
+
+          username_mapping_data = {
+            "username": curr_user,
+            "socket_id": socket.id
+          }
+          socket.emit("username_mapping", username_mapping_data)
+
+          // TODO 1:
+          // work the logic to get the socket_id otherwise only one client will
+          // be able to connect to the other and not vice versa
+          // **Note: although one client connecting to other will instantiate the communication
+          // but then would require both the client to have a single socket id
+          // to communicate which will not be persistent without using local storage 
+          $('#join-chat-btn').on('click', function() {
+            data = {
+              "username":curr_user,
+              "socket_id":""
+            };     
+            socket.emit('send_private_message_req', data);
+            $('input-msg').val('');
+          });
+
+          socket.on('recieve_private_message_req', (data) => {
+                console.log(data);
+          });
+
+          socket.on('recieve_private_message', (data) => {
+            
+            $("#message").append('<p>' + data["from_username"] + ': ' + data["msg"] + '</p>');
+            console.log(data);
+          });
+            
+          
+          // TODO 2:
+          // same as TODO 1
+          $('#sendbtn').on('click', function() {
+            msg_val = $('inputmsg').val();
+            msg_data = {
+              "from_username":curr_user, 
+              "message": msg_val, 
+              "to_username":"", 
+              "socket_id": "",
+            }
+            
+            socket.emit('send_private_message', msg_data);
+            $('inputmsg').val('');
+          });
+
+        });
+
+        socket.on('disconnect', () => {
+          console.log('SOCKET DISCONNECTED');
+          $('#is-connected').text("{{ data }} offline.")
+
+        });
+      </script>
+
+      <div id="message"></div>
+
+      <input type="text" id="inputmsg">
+      <button id="sendbtn">Send</button>
+
+      <!-- TODO 3
+           implement a chat_room route separately - to connect and authenticate the users
+           (required as per project guildlines by herovired)
+      -->
+<!--       <form action="/room" method ='POST'>
             
               <input type="text" placeholder="Enter Username" name="search" required>
               <input type = "submit">
               <button><a href = "signin">Logout</button>
-          </form>
+        </form>
 
-          <p>{{invalid}}</p>
+          <p>{{invalid}}</p> -->
 	
   </body>
 </html>

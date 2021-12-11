@@ -1,9 +1,10 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from config import *
 #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 Github Token
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://postgres:password@localhost/chatroom"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{DB_USERNAME}:{DB_PWD}@localhost/{DB_NAME}"
 
 db = SQLAlchemy(app) 
 class Userdata(db.Model):
