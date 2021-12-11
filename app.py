@@ -8,7 +8,7 @@ import hashlib
 from flask_socketio import SocketIO, send, emit, join_room, leave_room
 g_name = ""
 socketio = SocketIO(app, cors_allowed_origins='*')
-
+users = dict()
 
 
 # app = Flask(__name__)
@@ -117,14 +117,22 @@ def private_message_req(data):
         socket_id: "" # another client where it wants to connect
     }
     """
-    print("-"*10)
-    print("pm", data)
-    print("-"*10)
+    # print("-"*10)
+    # print("pm req", data)
+    # print("-"*10)
     username = data['username']
-    room = data['socket_id']
+
+    users_keys = list(users.keys())
+    room = users[users_keys[0]] if users[users_keys[0]] != data['socket_id'] else users[users_keys[1]]
+    # print("room", room)
+    # print("data['socket_id']", data['socket_id'])
+    # print(users)
+    # print("="*10)
+
     join_room(room)
     emit('recieve_private_message_req', username + ' has entered the room.', to=room)
-# socket.emit('send_private_message_req', {"username":"{{ data }}", "socket_id":"FW72lNwnhAnuWH90AAAD"})
+# js query to run on console: - change the socket_id
+# socket.emit('send_private_message_req', {"username":"user1", "socket_id":"FW72lNwnhAnuWH90AAAD"})
 
 @socketio.on("send_private_message", namespace='/personal')
 def private_message(data):
@@ -134,23 +142,35 @@ def private_message(data):
         from_username:""
         message:""
         to_username:""
-        socket_id:""
+        socket_id:"" # socket id of recepient
     }
     """
-    print("-"*10)
-    print("pm", data)
-    print("-"*10)
+    # print("-"*10)
+    # print("pm", data)
+    # print("users", users)
+    # print("-"*10)
+
+    users_keys = list(users.keys())
+    room = users[users_keys[0]] if users[users_keys[0]] != data['socket_id'] else users[users_keys[1]]
+    
     msg_data = {
         "from_username": data['from_username'],
         "from_socket_id" :request.sid,
         "msg": data["message"],
         "to_username":data['to_username'],
-        "to_socket_id":data['socket_id'],
+        "to_socket_id":room,
     }
-    room = data['socket_id']
+
     emit('recieve_private_message', msg_data, to=room)
+# js query to run on console: - change the socket_id and other fields
 # socket.emit('send_private_message', {"from_username":"", "message":"", "to_username":"", "socket_id":"FW72lNwnhAnuWH90AAAD"})
 
+@socketio.on("username_mapping", namespace='/personal')
+def handle_username(username_mapping_data):
+    print("-"*10)
+    print("username_mapping", username_mapping_data)
+    print("-"*10)
+    users[username_mapping_data['username']] = username_mapping_data['socket_id']
 
 @socketio.on('connect')
 def connect():
