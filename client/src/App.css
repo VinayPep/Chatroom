@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Grand+Hotel&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Righteous&display=swap');
+title{
+    font-family: 'Grand Hotel', cursive i !important;
+}
+Button{
+    color: aliceblue !important;
+    font-family: 'Righteous', cursive!important;
+    font-size: 30px;
+}
+a{
+    text-decoration: none !important;
+}
+Button:hover{
+    background-color: rgb(49, 20, 95) !important;
+}
+form{
+    margin: auto !important;
+}
+html,body{
+    overflow-x: hidden !important;
+}

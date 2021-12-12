@@ -1,0 +1,9 @@
+Flask==2.0.2
+Flask-SQLAlchemy==2.5.1
+SQLAlchemy==1.4.28
+Werkzeug==2.0.2
+Flask-SocketIO==5.1.1
+psycopg2==2.8.6
+psycopg2-binary==2.9.2
+PyJWT==2.3.0
+virtualenv==20.10.0

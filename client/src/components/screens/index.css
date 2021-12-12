@@ -1,0 +1,236 @@
+@import url('https://fonts.googleapis.com/css2?family=Concert+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Titillium+Web:wght@400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BioRhyme:wght@700&display=swap');
+Button{
+  font-size: 20px ;
+}
+
+.zoom:hover {
+  transform: scale(1.5); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+.zoom2 {
+  transition: transform 0.5s;
+ }
+.zoom2:hover {
+  transform: scale(1.12); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+}
+#MainForm{
+    margin: auto !important;
+    width:50%;
+}
+
+#icon-button-file{
+    background-color: rgba(0, 0, 0, 0.09) !important;
+    height: 30px;
+    color:rgb(71, 70, 62);
+}
+#para{
+    font-size: 21px;
+    color:rgb(71, 70, 62);
+}
+
+/* Section Top */
+::-webkit-scrollbar {
+  display: none;
+}
+
+#section_top{
+    background: linear-gradient(rgba(0,0,0,0.6),rgba(0,0,0,0.6) ) ,
+    url('../img/section_top.jpg');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    height:450px;
+}
+.Main-Heading{
+  position: absolute;
+  top: 38%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: rgb(202, 224, 221);
+  font-size: xx-large;
+  text-align: center;
+  font-family: 'Concert One', cursive;
+}
+
+
+/* About Us */
+#about{
+  background: #C9D6FF;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #E2E2E2, #C9D6FF);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #E2E2E2, #C9D6FF); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */ 
+  padding: 60px 180px !important;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Titillium Web', sans-serif;
+}
+
+.about-head {
+  text-align: justify !important;
+  text-justify: inter-word !important;
+  font-family: 'BioRhyme', serif !important;
+
+}
+.section-title p{
+  font-size: 19px;
+}
+
+
+
+
+
+/* Developer Section*/
+#team{
+  background: #D3CCE3;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #E9E4F0, #D3CCE3);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #E9E4F0, #D3CCE3); 
+  padding: 60px 180px !important;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  font-family: 'Titillium Web', sans-serif;
+}
+.team-head{
+  font-family: 'BioRhyme', serif !important;
+  text-align: left !important ;
+}
+.team .member {
+  position: relative;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 5px;
+  transition: 0.5s;
+  
+  background: #E0EAFC;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #CFDEF3, #E0EAFC);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #CFDEF3, #E0EAFC); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
+}
+
+
+/* Footer */
+#footer{
+  background: #232526;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to top, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to top, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  display: flex;
+  color: white;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+/* Profile */
+div.gallery {
+    margin: 5px;
+    border: 1px solid #ccc;
+    float: left;
+    width: 180px;
+  }
+  
+  div.gallery:hover {
+    border: 1px solid #777;
+  }
+  
+  div.gallery img {
+    width: 100%;
+    height: auto;
+  }
+
+  /* Home */
+
+  .home_img{
+    box-shadow: 10px 10px 5px #5a5858;
+    
+  }
+
+  .Home_img_div{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 40px;
+    flex-wrap: wrap;
+  }
+  
+  #heading-name{
+    display: flex;
+    float:left;
+  }
+
+  #dp-heading{
+    margin-left: 10px;
+  }
+
+  #dp{
+    border-radius: 200%;
+    margin-bottom: 5px;
+    height: 100px;
+    width:100px;
+    margin: auto;
+    margin-top: 25px;
+    
+  }
+
+  #standard-basic{
+    width: 55vw;
+}
+
+.card{
+  margin-bottom: 10px;
+  background-color: #d1f1e8;
+}
+
+
+/* Responsiveness */
+@media only screen and (max-width: 600px){
+  
+  .Main-Heading{
+    top:46%;
+  }
+
+  /* Create post */
+  #MainForm .makeStyles-root-1{
+    margin: 0% -27% 0% !important;
+  }
+
+/* Profile */
+#profile-container{
+  position: absolute;
+  right: 9%;
+  max-width: 41% !important;
+  font-size: 20vw !important;
+}
+#profile-img{
+  width:120px !important;
+  height:120px !important;
+  margin-left: 10px;
+}
+#follower-info{
+  display: grid !important;
+}
+
+#updatedp{
+  padding-top: 30%;
+}
+
+/* Landing Page */
+#about{
+  padding:10% !important;
+  text-align: justify !important;
+  text-justify: inter-character !important;
+}
+#team{
+  padding:8% !important;
+  text-align: justify ;
+  text-justify: inter-character ;
+}
+#lastcard{
+  text-align: left;
+  display: grid !important;
+}
+}
+
+@media only screen and (min-width: 600px) and (max-width: 800px){
+
+  #lastcard{
+    text-align: left;
+    display: grid !important;
+  }
+
+}
